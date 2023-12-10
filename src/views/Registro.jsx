@@ -1,4 +1,4 @@
-import { Outlet} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 export default function Registro() {
   return (
@@ -68,6 +68,9 @@ export default function Registro() {
             </form>
 
         </div>
+        <nav className="mt-5"> <Link to="/auth/login">
+            Tienes una cuenta? inicia sesion
+            </Link></nav>
    </>
   )
 }
