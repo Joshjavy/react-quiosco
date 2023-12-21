@@ -1,6 +1,7 @@
-
+import useQuiosco from "../hooks/useQuiosco"
 
 export default function Categoria({ categoria }) {
+    const { handleClickCategoria } = useQuiosco();
     const {icono,id,nombre} = categoria
     return (
             <div className="flex items-center gap-4 border w-full p-3 hover:bg-amber-400 hover:text-white cursor-pointer">
@@ -9,7 +10,11 @@ export default function Categoria({ categoria }) {
                         src={`/img/icono_${icono}.svg`}
                         className="w-12"
                         />
-                        <p className="text-lg font-bold cursor-pointer truncate"> {nombre} </p>
+                        <button 
+                            type="button"
+                            className="text-lg font-bold cursor-pointer truncate"
+                            onClick={ handleClickCategoria}                    
+                        > {nombre} </button>
                 </div>
     )
 }
