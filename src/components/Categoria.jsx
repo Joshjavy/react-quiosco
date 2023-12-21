@@ -13,7 +13,7 @@ export default function Categoria({ categoria }) {
                         <button 
                             type="button"
                             className="text-lg font-bold cursor-pointer truncate"
-                            onClick={ handleClickCategoria}                    
+                            onClick={ () => handleClickCategoria(id)}                    
                         > {nombre} </button>
                 </div>
     )
