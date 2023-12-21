@@ -4,7 +4,6 @@ import useQuiosco from '../hooks/useQuiosco'
 
 
 export default function Inicio() {
-  const {hola } = useQuiosco
 
   return (
     <>

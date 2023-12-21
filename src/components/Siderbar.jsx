@@ -1,8 +1,8 @@
+import useQuiosco from "../hooks/useQuiosco";
 import Categoria from "./Categoria"
-import { categorias } from "../data/categorias"
 
 export default function Siderbar() {
-    
+    const { categorias } = useQuiosco();
     return (
         <aside className="md:w-72">
             <div className="p-4">
