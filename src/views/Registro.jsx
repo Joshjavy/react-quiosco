@@ -1,6 +1,32 @@
+import { createRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-
+import clienteAxios from '../config/axios';
 export default function Registro() {
+    const nameref = createRef();
+    const emailref = createRef();
+    const passwordref = createRef();
+    const passwordConfirmationref = createRef();
+
+    const handleSubnit = async e =>{
+        e.preventDefault();
+
+        const datos ={
+            name: nameref.current.value,
+            email:emailref.current.value,
+            password: passwordref.current.value,
+            password_confirmation: passwordConfirmationref.current.value,
+        }
+        
+        try{
+            const respuesta = await clienteAxios.post('/api/registro', datos);
+            console.log(respuesta);
+        }catch(error){
+            console.log(error);
+
+        }
+    }
+
+
   return (
     <>
         <h1 className='text-4xl font-black'>
@@ -8,7 +34,9 @@ export default function Registro() {
         </h1>
         <p>Crea tu cuenta llenando el formulariio</p>
         <div className='bg-white shadow-md rounded-md mt-10 px- 5 py-10'>
-            <form>
+            <form
+                onSubmit={handleSubnit}
+            >
                 <div className='mb-4'>
                     <label className='text-slate-800' htmlFor='name'>
                         Nombre:
@@ -18,6 +46,7 @@ export default function Registro() {
                         id='name'
                         className='mt-2 w-full p-3 bg-gray-200'
                         name='name'
+                        ref={nameref}
                         placeholder='Tu nombre'
                     />
                 </div>
@@ -31,6 +60,7 @@ export default function Registro() {
                         id='email'
                         className='mt-2 w-full p-3 bg-gray-200'
                         name='email'
+                        ref={emailref}
                         placeholder='Tu Email'
                     />
                 </div>
@@ -44,6 +74,7 @@ export default function Registro() {
                         id='password'
                         className='mt-2 w-full p-3 bg-gray-200'
                         name='password'
+                        ref = {passwordref}
                         placeholder='Tu password'
                     />
                 </div>
@@ -57,6 +88,7 @@ export default function Registro() {
                         id='password'
                         className='mt-2 w-full p-3 bg-gray-200'
                         name='password_confirmation'
+                        ref={passwordConfirmationref}
                         placeholder='Repite tu password'
                     />
                 </div>
