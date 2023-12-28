@@ -21,8 +21,10 @@ export default function Registro() {
         }
         
         try{
+            
             const respuesta = await clienteAxios.post('/api/registro', datos);
             console.log(respuesta);
+
         }catch(error){
             setErrores( Object.values(error.response.data.errors) );
         }
@@ -88,8 +90,8 @@ export default function Registro() {
                         Repetir password:
                     </label>
                     <input 
-                        type="password_confirmation"
-                        id='password'
+                        type="password"
+                        id='password_confirmation'
                         className='mt-2 w-full p-3 bg-gray-200'
                         name='password_confirmation'
                         ref={passwordConfirmationref}
@@ -98,7 +100,7 @@ export default function Registro() {
                 </div>
                 <input type="submit"
                         value="Crear Cuenta"
-                        className='bg-indigo-600 hover:bg-indigo-800 text-white w-full mt-5 uppercase font-bol cursor-pointer'
+                        className='bg-indigo-600 hover:bg-indigo-800 text-white w-full mt-5 uppercase font-bol cursor-pointer rounded h-8 shadow-sm'
                 />
 
             </form>
