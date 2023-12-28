@@ -1,15 +1,18 @@
 import { createRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import clienteAxios from '../config/axios';
+import Alerta from '../components/Alerta';
+
 export default function Registro() {
     const nameref = createRef();
     const emailref = createRef();
     const passwordref = createRef();
     const passwordConfirmationref = createRef();
 
+    const [errores, setErrores] = useState([]);
+
     const handleSubnit = async e =>{
         e.preventDefault();
-
         const datos ={
             name: nameref.current.value,
             email:emailref.current.value,
@@ -21,8 +24,7 @@ export default function Registro() {
             const respuesta = await clienteAxios.post('/api/registro', datos);
             console.log(respuesta);
         }catch(error){
-            console.log(error);
-
+            setErrores( Object.values(error.response.data.errors) );
         }
     }
 
@@ -36,7 +38,9 @@ export default function Registro() {
         <div className='bg-white shadow-md rounded-md mt-10 px- 5 py-10'>
             <form
                 onSubmit={handleSubnit}
+                noValidate
             >
+                { errores ? errores.map((error, i) => <Alerta key={i}> { error } </Alerta>) : null }
                 <div className='mb-4'>
                     <label className='text-slate-800' htmlFor='name'>
                         Nombre:
