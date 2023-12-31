@@ -24,7 +24,7 @@ export default function AdminSideBar() {
             type='button'
             className=" text-center bg-red-500 w-full p-3 font-bold text-white truncate"
             onClick={()=>{
-                logout
+                logout()
             }}
             >Cerrar Sesion</button>
         </div>
