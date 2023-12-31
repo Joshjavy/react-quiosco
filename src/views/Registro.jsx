@@ -1,7 +1,7 @@
 import { createRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import clienteAxios from '../config/axios';
 import Alerta from '../components/Alerta';
+import { useAuth } from '../hooks/useAuth';
 
 export default function Registro() {
     const nameref = createRef();
@@ -10,7 +10,11 @@ export default function Registro() {
     const passwordConfirmationref = createRef();
 
     const [errores, setErrores] = useState([]);
-
+    const { registro } = useAuth({
+        middleware :'guest',
+        url:'/',
+        });
+    
     const handleSubnit = async e =>{
         e.preventDefault();
         const datos ={
@@ -19,15 +23,7 @@ export default function Registro() {
             password: passwordref.current.value,
             password_confirmation: passwordConfirmationref.current.value,
         }
-        
-        try{
-            
-            const { data } = await clienteAxios.post('/api/registro', datos);
-            console.log( data.token );
-
-        }catch(error){
-            setErrores( Object.values(error.response.data.errors) );
-        }
+        registro(datos, setErrores);
     }
 
 

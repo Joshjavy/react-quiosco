@@ -4,7 +4,7 @@ import { useAuth } from "../hooks/useAuth";
 
 export default function Siderbar() {
     const { categorias } = useQuiosco();
-    const { logout} = useAuth({middleware:'auth'});
+    const { logout, user} = useAuth({middleware:'auth'});
     return (
         <aside className="md:w-72">
             <div className="p-4">
@@ -14,6 +14,7 @@ export default function Siderbar() {
                     alt="Logo"
                 />
             </div>
+            <p className="mx-4 font-bold uppercase text-center">Bienvenid@ : {user?.name}  </p>
             <div className='mt-10'>
                 {categorias.map( categoria=>(
                     <Categoria
