@@ -10,7 +10,6 @@ const QuioscoProvider=( { children })=>{
     const [producto, setProducto ] = useState({});
     const [pedido, setPedido ] = useState([]);
     const [total, setTotal ] = useState(0);
-
     useEffect(() => {
         const nuevoTotal = pedido.reduce((total, producto) => ( producto.precio * producto.cantidad) + total,0 )
         setTotal(nuevoTotal);
@@ -70,6 +69,24 @@ const QuioscoProvider=( { children })=>{
         toast.success('Eliminado del pedido');
     }
 
+    const handleSubmitNuevaOrden= async ()=>{
+        const token = localStorage.getItem('AUTH_TOKEN');
+        try {
+            await clienteAxios.post('/api/pedidos',
+                {
+                    
+                },
+                {
+                    headers:{
+                        Authorization:`Bearer ${token}`
+                    }
+                });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
     return (
         <QuioscoContext.Provider
             value={{ 
@@ -85,6 +102,7 @@ const QuioscoProvider=( { children })=>{
                 handleEditarCantidad,
                 handleEliminarProductoPedido,
                 total,
+                handleSubmitNuevaOrden,
 
             }}
         >{ children }</QuioscoContext.Provider>
