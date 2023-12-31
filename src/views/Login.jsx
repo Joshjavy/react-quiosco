@@ -1,5 +1,32 @@
+import { createRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import clienteAxios from '../config/axios';
+import Alerta from '../components/Alerta';
+
+
 export default function Login() {
+
+    const emailref = createRef();
+    const passwordref = createRef();
+
+    const [errores, setErrores] = useState([]);
+
+    const handleSubnit = async e =>{
+        e.preventDefault();
+        const datos ={
+            email:emailref.current.value,
+            password: passwordref.current.value,
+        }
+        
+        try{
+            const { data } = await clienteAxios.post('/api/login', datos);
+            console.log( data.token );
+
+        }catch(error){
+            setErrores( Object.values(error.response.data.errors) );
+        }
+    }
+
   return (
     <>
         <h1 className='text-4xl font-black'>
@@ -7,7 +34,10 @@ export default function Login() {
         </h1>
         <p>para crear un pedido debes iniciar sesion</p>
         <div className='bg-white shadow-md rounded-md mt-10 px- 5 py-10'>
-            <form>
+            <form
+                onSubmit={ handleSubnit }
+                noValidate
+            >
                 
 
                 <div className='mb-4'>
@@ -20,6 +50,7 @@ export default function Login() {
                         className='mt-2 w-full p-3 bg-gray-200'
                         name='email'
                         placeholder='Tu Email'
+                        ref={ emailref }
                     />
                 </div>
 
@@ -33,13 +64,14 @@ export default function Login() {
                         className='mt-2 w-full p-3 bg-gray-200'
                         name='password'
                         placeholder='Tu password'
+                        ref={ passwordref }
                     />
                 </div>
 
                 
                 <input type="submit"
                         value="Iniciar Sesion"
-                        className='bg-indigo-600 hover:bg-indigo-800 text-white w-full mt-5 uppercase font-bol cursor-pointer'
+                        className='bg-indigo-600 hover:bg-indigo-800 text-white w-full mt-5 uppercase font-bol cursor-pointer rounded h-8 shadow-sm'
                 />
 
             </form>
