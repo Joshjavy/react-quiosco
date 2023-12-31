@@ -20,9 +20,11 @@ export default function Login() {
         
         try{
             const { data } = await clienteAxios.post('/api/login', datos);
-            console.log( data.token );
+            localStorage.setItem('AUTH_TOKEN', data.token);
+            setErrores([]);
 
         }catch(error){
+            console.log(error);
             setErrores( Object.values(error.response.data.errors) );
         }
     }
@@ -39,7 +41,7 @@ export default function Login() {
                 noValidate
             >
                 
-
+                { errores ? errores.map((error, i) => <Alerta key={i}> { error } </Alerta>) : null }
                 <div className='mb-4'>
                     <label className='text-slate-800' htmlFor='email'>
                         Email:
