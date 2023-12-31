@@ -49,12 +49,19 @@ export const useAuth=( {middleware, url})=>{
             navigate(url);
         }
 
+        if( middleware === 'auth' && error){
+            navigate('/auth/login');
+        }
+
+
     },[user,error])
 
     return {
         login,
         registro,
         logout,
+        user,
+        error,
     }
 }
 
