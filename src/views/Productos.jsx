@@ -3,14 +3,9 @@ import clienteAxios from '../config/axios';
 import { formatearDinero } from "../helpers" ;
 import Producto from '../components/Producto';
 
-  //const { handleClickCompletarPedido } = useQuiosco();
-  //const { data, error, isLogin } =useSwr ('/api/pedidos',fetcher,{ refreshInterval: 1000})
-  //const { data, error, isLoading } =useSwr ('/api/pedidos',fetcher,{ refreshInterval: 1000})
-  //if(isLoading) return 'Cargando...';
-
-
 export default function Productos() {
   const token = localStorage.getItem('AUTH_TOKEN');
+  
     const fetcher = ()=> clienteAxios('/api/productos',{
         headers:{
           Authorization:`Bearer ${token}`
