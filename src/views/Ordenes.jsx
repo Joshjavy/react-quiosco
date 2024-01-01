@@ -1,4 +1,5 @@
 import useSwr from 'swr';
+import useQuiosco from '../hooks/useQuiosco';
 import clienteAxios from '../config/axios'
 import { formatearDinero } from "../helpers" 
 
@@ -10,8 +11,9 @@ export default function Ordenes() {
       }
     })
 
+    const { handleClickCompletarPedido } = useQuiosco();
   //const { data, error, isLogin } =useSwr ('/api/pedidos',fetcher,{ refreshInterval: 1000})
-  const { data, error, isLoading } =useSwr ('/api/pedidos',fetcher)
+  const { data, error, isLoading } =useSwr ('/api/pedidos',fetcher,{ refreshInterval: 1000})
   if(isLoading) return 'Cargando...';
   return (
     <>
@@ -40,11 +42,13 @@ export default function Ordenes() {
                 ))}
                 <p className='text-lg font-bold text-slate-500'> Cliente: {''} <span className='font-normal'> { pedido.user.name}</span></p>
                 <p className='text-lg font-bold text-amber-600'> Total a pagar: {''} <span className='font-normal text-slate-600'> { formatearDinero(pedido.total)}</span></p>
+
                 <button type="button"
-          className='
-          absolute inset-x-0 bottom-0
-          bg-indigo-600 hover:bg-indigo-800 rounded px-5 py-2 text-gray-300 text-center w-full cursor-pointer'
-        > Completar pedido </button>
+                  className='
+                  absolute inset-x-0 bottom-0
+                  bg-indigo-600 hover:bg-indigo-800 rounded px-5 py-2 text-gray-300 text-center w-full cursor-pointer'
+                  onClick={()=>handleClickCompletarPedido(pedido.id)}
+                > Completar pedido </button>
           </div>
           
         ))}
