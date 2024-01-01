@@ -1,4 +1,19 @@
+import useSwr from 'swr';
+import clienteAxios from '../config/axios'
+
+
 export default function Ordenes() {
+  const token = localStorage.getItem('AUTH_TOKEN');
+  const fetcher = ()=> clienteAxios('/api/pedidos',{
+        headers:{
+          Authorization:`Bearer ${token}`
+      }
+    })
+
+  const { data, error, isLogin } =useSwr ('/api/pedidos',fetcher)
+  console.log(data);
+  console.log(error);
+  console.log(isLogin);
   return (
     <>
       <h1 className='text-4xl font-black'> Ordenes</h1>
